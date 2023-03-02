@@ -1,3 +1,10 @@
 from django.contrib import admin
+from django.contrib.admin import ModelAdmin
 
-# Register your models here.
+from bank.models import BankAccount, Customer
+
+
+@admin.register(BankAccount)
+@admin.register(Customer)
+class BankAdmin(ModelAdmin):
+    pass
