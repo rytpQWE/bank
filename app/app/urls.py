@@ -22,6 +22,7 @@ from bank.views import AccountView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('django.contrib.auth.urls')),
+    path(r'auth/', include('djoser.urls')),
 ]
 
 router = routers.DefaultRouter()
