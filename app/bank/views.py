@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ReadOnlyModelViewSet
 
@@ -10,3 +9,7 @@ class AccountView(ReadOnlyModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = BankAccount.objects.all()
     serializer_class = BankAccountSerializer
+
+    def get_queryset(self):
+        """Get object for current user"""
+        return self.queryset.filter(user=self.request.user)
