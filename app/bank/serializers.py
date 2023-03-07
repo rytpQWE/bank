@@ -13,7 +13,7 @@ class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
         fields = ['fname', 'lname', 'city', 'address']
-    """Auto create user field(user_id)"""
+    """Auto add user field(user_id)"""
     def create(self, validated_data):
         validated_data['user_id'] = self.context['request'].user
         return super(CustomerSerializer, self).create()
