@@ -17,14 +17,16 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from rest_framework import routers
 
-from bank.views import AccountViewSet
+from bank import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('django.contrib.auth.urls')),
     re_path(r'^auth/', include('djoser.urls.authtoken')),
+    path('api/customer/', views.CustomerCreateViewSet.as_view()),
 ]
 
 router = routers.DefaultRouter()
-router.register('api/account', AccountViewSet)
+router.register('api/account', views.AccountViewSet)
+
 urlpatterns += router.urls
