@@ -24,4 +24,10 @@ class CustomerCreateViewSet(generics.RetrieveUpdateAPIView):
     permission_classes = [IsAuthenticated]
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
+    """Get pk object"""
+    def get_object(self):
+        return self.queryset.filter(user=self.request.user).first()
+
+
+
 
