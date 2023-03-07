@@ -5,7 +5,7 @@ from bank.models import BankAccount
 from bank.serializers import BankAccountSerializer
 
 
-class AccountView(ReadOnlyModelViewSet):
+class AccountViewSet(ReadOnlyModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = BankAccount.objects.all()
     serializer_class = BankAccountSerializer
@@ -13,3 +13,4 @@ class AccountView(ReadOnlyModelViewSet):
     def get_queryset(self):
         """Get object for current user"""
         return self.queryset.filter(user=self.request.user)
+

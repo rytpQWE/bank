@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
-from bank.views import AccountView
+from bank.views import AccountViewSet
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,5 +26,5 @@ urlpatterns = [
 ]
 
 router = routers.DefaultRouter()
-router.register('api/account', AccountView)
+router.register('api/account', AccountViewSet)
 urlpatterns += router.urls
