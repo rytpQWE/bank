@@ -27,3 +27,17 @@ class Customer(models.Model):
 
     def __str__(self):
         return f'Customer: {self.fname} {self.lname}'
+
+
+class Transaction(models.Model):
+    amount = models.DecimalField(
+        max_digits=12,
+        decimal_places=2
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    account = models.ForeignKey(
+        BankAccount,
+        on_delete=models.CASCADE
+    )
+    comment = models.CharField(max_length=256)
+
