@@ -35,9 +35,15 @@ class Transaction(models.Model):
         decimal_places=2
     )
     created_at = models.DateTimeField(auto_now_add=True)
-    account = models.ForeignKey(
+    account_from = models.ForeignKey(
         BankAccount,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='account_from'
+    )
+    account_to = models.ForeignKey(
+        BankAccount,
+        on_delete=models.CASCADE,
+        related_name='account_to',
     )
     comment = models.CharField(max_length=256)
 
