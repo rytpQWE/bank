@@ -1,10 +1,10 @@
-from rest_framework import generics
+from rest_framework import generics, viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ReadOnlyModelViewSet
 
-from bank.models import BankAccount, Customer
-from bank.serializers import BankAccountSerializer, CustomerSerializer
+from bank.models import BankAccount, Customer, Transaction
+from bank.serializers import BankAccountSerializer, CustomerSerializer, TransactionSerializer
 
 
 class AccountViewSet(ReadOnlyModelViewSet):
@@ -25,9 +25,13 @@ class CustomerCreateViewSet(generics.RetrieveUpdateAPIView):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
     """Get pk object"""
+
     def get_object(self):
         return self.queryset.filter(user=self.request.user).first()
 
 
-
-
+class TransactionViewSet(viewsets.GenericViewSet):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    queryset = Transaction.objects.all()
+    serializer_class = TransactionSerializer
