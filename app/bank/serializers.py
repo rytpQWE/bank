@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from bank.models import BankAccount, Customer
+from bank.models import BankAccount, Customer, Transaction
 
 
 class BankAccountSerializer(serializers.ModelSerializer):
@@ -17,3 +17,9 @@ class CustomerSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_data['user_id'] = self.context['request'].user
         return super(CustomerSerializer, self).create()
+
+
+class TransactionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Transaction
+        fields = '__all__'
