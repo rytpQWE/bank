@@ -38,7 +38,7 @@ class Transaction(models.Model):
     account_from = models.ForeignKey(
         BankAccount,
         on_delete=models.CASCADE,
-        related_name='account_from'
+        related_name='account_from',
     )
     account_to = models.ForeignKey(
         BankAccount,

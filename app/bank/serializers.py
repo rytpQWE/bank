@@ -7,6 +7,7 @@ class BankAccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = BankAccount
         fields = ['user', 'balance']
+        read_only_fields = ['user', 'balance']
 
 
 class CustomerSerializer(serializers.ModelSerializer):
@@ -22,4 +23,5 @@ class CustomerSerializer(serializers.ModelSerializer):
 class TransactionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transaction
-        fields = '__all__'
+        fields = ['id', 'amount', 'account_from', 'account_to', 'comment']
+        read_only_fields = ['id']
