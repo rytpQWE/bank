@@ -28,5 +28,6 @@ urlpatterns = [
 
 router = routers.DefaultRouter()
 router.register('api/account', views.AccountViewSet)
+router.register('api/transaction', views.TransactionViewSet)
 
 urlpatterns += router.urls
