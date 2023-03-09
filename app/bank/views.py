@@ -1,4 +1,3 @@
-from django.db import transaction
 from rest_framework import generics, viewsets, mixins, status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
