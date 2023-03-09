@@ -29,6 +29,7 @@ class Customer(models.Model):
         return f'Customer: {self.fname} {self.lname}'
 
 
+# Transactions history
 class Transaction(models.Model):
     amount = models.DecimalField(
         max_digits=12,
@@ -46,4 +47,3 @@ class Transaction(models.Model):
         related_name='account_to',
     )
     comment = models.CharField(max_length=256)
-
