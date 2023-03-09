@@ -1,15 +1,17 @@
-from rest_framework import generics, viewsets, mixins
+from django.db import transaction
+from rest_framework import generics, viewsets, mixins, status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.viewsets import ReadOnlyModelViewSet
+from rest_framework.response import Response
 
 from bank.models import BankAccount, Customer, Transaction
 from bank.serializers import BankAccountSerializer, CustomerSerializer, TransactionSerializer
+from bank.services import make_trans
 
 
 class AccountViewSet(viewsets.GenericViewSet,
                      mixins.ListModelMixin,
-                     mixins.CreateModelMixin,):
+                     mixins.CreateModelMixin, ):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
     queryset = BankAccount.objects.all()
@@ -38,13 +40,27 @@ class CustomerCreateViewSet(generics.RetrieveUpdateAPIView):
 
 class TransactionViewSet(viewsets.GenericViewSet,
                          mixins.ListModelMixin,
-                         mixins.CreateModelMixin,):
+                         mixins.CreateModelMixin,
+                         mixins.RetrieveModelMixin, ):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
 
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        try:
+            make_trans(**serializer.validated_data)
+        except ValueError:
+            content = {'error': 'ERROR BL9T'}
+            return Response(content, status=status.HTTP_400_BAD_REQUEST)
+
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
     def get_queryset(self):
-        """Get object for current user"""
-        account = BankAccount.objects.filter(user=self.request.user)
-        return self.queryset.filter(account_from__in=account)
+        """Return object for current authenticated user only"""
+        accounts = BankAccount.objects.filter(user=self.request.user)
+        return self.queryset.filter(account_from__in=accounts)
