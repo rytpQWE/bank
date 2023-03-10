@@ -4,7 +4,7 @@ from django.db import models
 
 class BankAccount(models.Model):
     # You cannot delete user with money
-    user = models.OneToOneField(User, on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
     balance = models.DecimalField(
         default=0,
         max_digits=12,
