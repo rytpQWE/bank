@@ -15,8 +15,8 @@ class BankAccountSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BankAccount
-        fields = ['id', 'user', 'balance', 'history']
-        read_only_fields = ['id', 'user', 'balance', 'history']
+        fields = ['id', 'user', 'balance', 'history', 'created_at']
+        read_only_fields = ['id', 'user', 'balance', 'history', 'created_at']
         extra_kwargs = {'history': {"required": False, "allow_null": True}}
 
 
