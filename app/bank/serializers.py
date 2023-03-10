@@ -11,12 +11,13 @@ class TransactionSerializer(serializers.ModelSerializer):
 
 
 class BankAccountSerializer(serializers.ModelSerializer):
-    history = TransactionSerializer(many=True, source='account_from')
+    history = TransactionSerializer(many=True, source='account_from', required=False)
 
     class Meta:
         model = BankAccount
-        fields = ['user', 'balance', 'history']
-        read_only_fields = ['user', 'balance', 'history']
+        fields = ['id', 'user', 'balance', 'history']
+        read_only_fields = ['id', 'user', 'balance', 'history']
+        extra_kwargs = {'history': {"required": False, "allow_null": True}}
 
 
 class CustomerSerializer(serializers.ModelSerializer):
