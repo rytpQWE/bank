@@ -20,6 +20,11 @@ class AccountViewSet(viewsets.GenericViewSet,
         """Create new bank account"""
         serializer.save(user=self.request.user)
 
+    def filter_queryset(self, queryset):
+        """Ordering account by date"""
+        queryset = super(AccountViewSet, self).filter_queryset(queryset)
+        return queryset.order_by('created_at')
+
     def get_queryset(self):
         """Get object for current user"""
         return self.queryset.filter(user=self.request.user)
