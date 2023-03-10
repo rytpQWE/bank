@@ -10,6 +10,7 @@ class BankAccount(models.Model):
         max_digits=12,
         decimal_places=2
     )
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'User\'s account: {self.user}'
