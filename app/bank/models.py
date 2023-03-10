@@ -48,3 +48,6 @@ class Transaction(models.Model):
         related_name='account_to',
     )
     comment = models.CharField(max_length=256)
+
+    class Meta:
+        ordering = ['-pk']
