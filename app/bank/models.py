@@ -13,7 +13,7 @@ class BankAccount(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'User\'s account: {self.user}'
+        return f'User\'s account: {self.user} id {self.pk}'
 
 
 class Customer(models.Model):
