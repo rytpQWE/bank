@@ -23,11 +23,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('django.contrib.auth.urls')),
     re_path(r'^auth/', include('djoser.urls.authtoken')),
-    path('api/customer/', views.CustomerCreateViewSet.as_view()),
+    path('api/customer/', views.CustomerCreateViewSet.as_view(), name='customer'),
 ]
 
 router = routers.DefaultRouter()
-router.register('api/account', views.AccountViewSet)
-router.register('api/transaction', views.TransactionViewSet)
+router.register('api/account', views.AccountViewSet, basename='account')
+router.register('api/transaction', views.TransactionViewSet, basename='transaction')
 
 urlpatterns += router.urls
