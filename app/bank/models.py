@@ -51,3 +51,17 @@ class Transaction(models.Model):
 
     class Meta:
         ordering = ['-pk']
+
+
+# Bank interests history
+class Interest(models.Model):
+    account = models.ForeignKey(
+        BankAccount,
+        on_delete=models.CASCADE,
+    )
+    amount = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+    )
+    percent = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
