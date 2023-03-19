@@ -15,6 +15,8 @@ class ApiTestCaseAuth(APITestCase):
         self.token = Token.objects.create(user=self.user)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
 
+    """Tests for auth users"""
+
     def test_get_customers_authenticated(self):
         response = self.client.get(self.customer_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
