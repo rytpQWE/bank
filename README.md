@@ -1,4 +1,4 @@
-# Service bank
+# Django Bank application
 
 For debug use: ModHeader(extension in chrome) and Postman
 
